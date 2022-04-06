@@ -1,70 +1,72 @@
 /*******************************************************
  * Objetivo: criar os cards conforme consumir a API
- * 
+ *
  *******************************************************/
 
+'use strict';
 
-'use strict'
+const key = '3027ea6c9704fac6a712caabdf255b7c';
 
-//Simular os dados
-const db = [
-    {
-        id: 1, 
-        nome: 'HBO',  
-        imagem: './img/hbo.png'
-    },
+const pesquisarStreamings = async () => {
+  const url = `https://api.themoviedb.org/3/watch/providers/movie?api_key=${key}&language=pt-BR`;
 
-    {
-        id: 2, 
-        nome: 'apple',  
-        imagem: './img/apple.png'
-    },
+  const response = await fetch(url);
 
-    {
-        id: 3, 
-        nome: 'globoplay',  
-        imagem: './img/globoplay.png'
-    },
+  // const data = await response.json();
+  let { results } = await response.json();
 
-    {
-        id: 4, 
-        nome: 'disney',  
-        imagem: './img/disney.png'
-    },
+  console.log(results);
+  // console.log(data);
 
-    {
-        id: 5, 
-        nome: 'star',  
-        imagem: './img/star.png'
-    },
-]
+  // console.log(data[i]['logo_path']);
+
+  return data;
+};
+
+const streaming = pesquisarStreamings();
+
+console.log(streaming);
 
 //Criar os cards de streamings
 
-const criarCard = (streaming) => {
+const criarCardStreaming = async (streaming) => {
+  streaming = pesquisarStreamings();
 
-    const card = document.createElement('div')
-    card.classList.add('card-streaming')
+  const card = document.createElement('div');
+  card.classList.add('card-streaming');
 
-    card.innerHTML = `
+  card.innerHTML = `
     <div class="fundo-imagem"></div>
                 <div class="container-imagem">
-                    <img class="imagem" src=${streaming.imagem}" alt="${streaming.nome}">
+                    <img class="imagem" src="" alt="">
                 </div>
 
-    `
+    `;
 
-    return card
+  return card;
+};
 
-}
+const criarCardFilme = async (filme) => {
+  const card = document.createElement('div');
+  card.classList.add('card-filme');
 
+  card.innerHTML = `
+        <div class="imagem-filme">
+            <img class="imagem" src="" alt="">
+        </div>
 
-const carregarStreamings = (streaming) =>{
-    const container = document.querySelector('.container-streamings')
+        <div>
+          <p class="titulo-filme">tetse</p>
+        </div>
+    `;
 
-    const card = streaming.map(criarCard)
+  return card;
+};
 
-    container.replaceChildren(...card)
-}
+const carregarStreamings = (filme) => {
+  const container = document.querySelector('.container-streamings');
 
-carregarStreamings(db)
+  const card = streaming.map(criarCardFilme);
+
+  container.replaceChildren(...card);
+};
