@@ -6,19 +6,27 @@
 'use strict';
 
 const key = '3027ea6c9704fac6a712caabdf255b7c';
-
+function name(chave, data) {
+  let values = [];
+  for (let index = 0; index < array.length; index++) {
+    const element = array[index];
+  }
+  return values;
+}
 const pesquisarStreamings = async () => {
   const url = `https://api.themoviedb.org/3/watch/providers/movie?api_key=${key}&language=pt-BR`;
 
   const response = await fetch(url);
 
-  // const data = await response.json();
-  let { results } = await response.json();
+  const data = await response.json();
+  result = data['results'];
+  // let { results } = await response.json();
 
   console.log(results);
   // console.log(data);
-
-  // console.log(data[i]['logo_path']);
+  // `https://image.tmdb.org/t/p/original/${image}`
+  console.log(data[i]['logo_path']);
+  console.log(data[i]['provide_name']);
 
   return data;
 };
