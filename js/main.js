@@ -5,48 +5,51 @@
 
 'use strict';
 
+
+
+//https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces /**endereco da imagem como bacground */
+
+
+//Chave da API
 const key = '3027ea6c9704fac6a712caabdf255b7c';
-function name(chave, data) {
-  let values = [];
-  for (let index = 0; index < array.length; index++) {
-    const element = array[index];
-  }
-  return values;
-}
+
+
+//Requisição para pegar streamings
 const pesquisarStreamings = async () => {
   const url = `https://api.themoviedb.org/3/watch/providers/movie?api_key=${key}&language=pt-BR`;
 
   const response = await fetch(url);
 
   const data = await response.json();
-  result = data['results'];
-  // let { results } = await response.json();
 
-  console.log(results);
-  // console.log(data);
-  // `https://image.tmdb.org/t/p/original/${image}`
-  console.log(data[i]['logo_path']);
-  console.log(data[i]['provide_name']);
+  //data.results.forEach(element => {
+    //  element.logo_path
+  //})
+
 
   return data;
 };
 
-const streaming = pesquisarStreamings();
+//Requisição para pegar os filmes que estão em alta
+const pesquisarFilmes = async () => {
+  const url = `https://api.themoviedb.org/3/trending/all/day?api_key=${key}`
 
-console.log(streaming);
+  const response = await fetch(url)
+
+  const data = await response.json();
+  
+  return data;
+}
 
 //Criar os cards de streamings
-
-const criarCardStreaming = async (streaming) => {
-  streaming = pesquisarStreamings();
-
+const criarCardStreaming = (streaming) => {
   const card = document.createElement('div');
   card.classList.add('card-streaming');
 
   card.innerHTML = `
     <div class="fundo-imagem"></div>
                 <div class="container-imagem">
-                    <img class="imagem" src="" alt="">
+                    <img class="imagem" src="https://image.tmdb.org/t/p/original/${streaming.logo_path}" alt="${streaming.provider_name}">
                 </div>
 
     `;
@@ -54,27 +57,57 @@ const criarCardStreaming = async (streaming) => {
   return card;
 };
 
-const criarCardFilme = async (filme) => {
+//Criar os  cards do filme
+const criarCardFilme = (filme) => {
   const card = document.createElement('div');
   card.classList.add('card-filme');
 
   card.innerHTML = `
         <div class="imagem-filme">
-            <img class="imagem" src="" alt="">
+            <img class="imagem" src="https://image.tmdb.org/t/p/w300_and_h450_bestv2${filme.poster_path}" alt="${filme.original_title == undefined ? filme.original_name : filme.original_title}">
         </div>
 
-        <div>
-          <p class="titulo-filme">tetse</p>
+        <div class="container-titulo">
+                                    <!--Condicional para verificar se está vazia ou não-->
+          <p class="titulo-filme">${filme.original_title == undefined ? filme.original_name : filme.original_title}</p>
         </div>
     `;
 
   return card;
 };
 
-const carregarStreamings = (filme) => {
+
+//Carrega as streamings na página
+const carregarStreamings =  async () => {
   const container = document.querySelector('.container-streamings');
 
-  const card = streaming.map(criarCardFilme);
+  const streaming = await pesquisarStreamings()
+
+  let array = []
+  for(let i = 0; i< 5; i++) {
+    array[i] = streaming.results[i]
+  }
+
+  console.log(array)
+
+  const card = array.map(criarCardStreaming);
+
 
   container.replaceChildren(...card);
 };
+
+
+//Carrega os filmes na página
+const carregarFilmes = async () => {
+  const container = document.querySelector('.container-filmes');
+
+  const filme = await pesquisarFilmes()
+
+  const card = filme.results.map(criarCardFilme);
+
+  container.replaceChildren(...card);
+};
+
+carregarFilmes()
+
+carregarStreamings()
