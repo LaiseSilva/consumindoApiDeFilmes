@@ -7,11 +7,15 @@
 
 //Chave da API
 const key = "3027ea6c9704fac6a712caabdf255b7c";
+
+// Responsável por guardar o indice que foi clicado
 let i = -1;
+
+//Responsável por guarda as informações do que vem do request 
 let filme = "";
 //Requisição para pegar os filmes que estão em alta
 const pesquisarFilmes = async () => {
-  const url = `https://api.themoviedb.org/3/trending/all/day?api_key=${key}`;
+  const url = `https://api.themoviedb.org/3/movie/popular?api_key=${key}&language=en-US&page=1`;
 
   const response = await fetch(url);
 
@@ -20,12 +24,40 @@ const pesquisarFilmes = async () => {
   return data;
 };
 
-//Criar os  cards do filme
+
+//Funcão para ativar a modal
+function iniciarModal(modalId) {
+
+  const container = document.querySelector(".modal")
+
+   const teste = paodebatata()
+
+   const container.replaceChildren(teste);
+
+
+
+  const modal = document.getElementById(modalId);
+  modal.classList.add("mostrar");
+  modal.addEventListener("click", (evento) => {
+    if (evento.target.id == modalId || evento.target.className == "fechar") {
+      modal.classList.remove("mostrar");
+    }
+  });
+}
+
+
+//Função responsável por pegar o indice que foi clicado e jogar para criar a modal
 const paodebatata = (batata) => {
-  criarModal(filme.results[batata]);
-  console.log(filme.results[batata]);
-  console.log(batata);
+  const teste =  criarModal(filme.results[batata]);
+
+  iniciarModal('modal');
+
+  console.log(teste);
+  return teste
 };
+
+
+//Criar os  cards do filme
 const criarCardFilme = (filme) => {
   i += 1;
 
@@ -41,22 +73,16 @@ const criarCardFilme = (filme) => {
       ? filme.original_name
       : filme.original_title
   }">
-        </div>
-
-        <div class="container-titulo">
-                                    <!--Condicional para verificar se está vazia ou não-->
-          <p class="titulo-filme">${
-            filme.original_title == undefined
-              ? filme.original_name
-              : filme.original_title
-          }</p>
-        </div>
-    `;
+        </div>`;
 
   return card;
 };
 
+
+//Criação do modal
 const criarModal = (filme) => {
+
+  console.log(filme);
   const modal = document.createElement("div");
 
   modal.classList.add("conteudo-modal");
@@ -64,7 +90,7 @@ const criarModal = (filme) => {
   modal.innerHTML = `
         <style>
           .conteudo-modal {
-              background-image: url();
+              background:#000;
           }
         </style>
     <button class="fechar">X</button>
@@ -74,7 +100,7 @@ const criarModal = (filme) => {
     </div>
 
     <div>
-      <h1 class="titulo-filme">${filme.poster_path}</h1>
+      <h1 class="titulo-filme">${filme.original_title}</h1>
       <div class="informacoes-adicionais">
           <div class="classificao">${filme.popularity}</div>
           <div class="genero">
@@ -88,11 +114,12 @@ const criarModal = (filme) => {
           <p class="descricao">${filme.overview}</p>
       </div>
 
-    </div>
+    </div>`;
 
-      
-      `;
+    return modal;
+
 };
+
 
 //Carrega os filmes na página
 const carregarFilmes = async () => {
@@ -105,20 +132,12 @@ const carregarFilmes = async () => {
   container.replaceChildren(...card);
 };
 
-function iniciarModal(modalId) {
-  const modal = document.getElementById(modalId);
-  modal.classList.add("mostrar");
-  modal.addEventListener("click", (evento) => {
-    if (evento.target.id == modalId || evento.target.className == "fechar") {
-      modal.classList.remove("mostrar");
-    }
-  });
-}
 
-const maisInformacoesBotao = document.querySelector(".botao-informacoes");
-/*const maisInformacoesImagem = document.querySelector('.card-filme');
 
-maisInformacoes.addEventListener('click', () => iniciarModal('modal'));
+/*const maisInformacoesBotao = document.querySelector(".botao-informacoes");
+const maisInformacoesImagem = document.querySelector('.card-filme');*/
+
+/*maisInformacoes.addEventListener('click', () => iniciarModal('modal'));
 maisInformacoesImagem.addEventListener('click', () => iniciarModal('modal'));*/
 
 carregarFilmes();
