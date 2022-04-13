@@ -3,14 +3,12 @@
  *
  *******************************************************/
 
-'use strict';
-
-//https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces /**endereco da imagem como bacground */
+"use strict";
 
 //Chave da API
-const key = '3027ea6c9704fac6a712caabdf255b7c';
+const key = "3027ea6c9704fac6a712caabdf255b7c";
 let i = -1;
-let filme = '';
+let filme = "";
 //Requisição para pegar os filmes que estão em alta
 const pesquisarFilmes = async () => {
   const url = `https://api.themoviedb.org/3/trending/all/day?api_key=${key}`;
@@ -24,15 +22,15 @@ const pesquisarFilmes = async () => {
 
 //Criar os  cards do filme
 const paodebatata = (batata) => {
-  iniciarModal(filme.results[batata]);
+  criarModal(filme.results[batata]);
   console.log(filme.results[batata]);
   console.log(batata);
 };
 const criarCardFilme = (filme) => {
   i += 1;
 
-  const card = document.createElement('div');
-  card.classList.add('card-filme');
+  const card = document.createElement("div");
+  card.classList.add("card-filme");
 
   card.innerHTML = `
         <div class="imagem-filme" onclick=paodebatata("${i}")>
@@ -58,9 +56,47 @@ const criarCardFilme = (filme) => {
   return card;
 };
 
+const criarModal = (filme) => {
+  const modal = document.createElement("div");
+
+  modal.classList.add("conteudo-modal");
+
+  modal.innerHTML = `
+        <style>
+          .conteudo-modal {
+              background-image: url();
+          }
+        </style>
+    <button class="fechar">X</button>
+
+    <div class="container-imagem">
+      <img class="imagem-modal" src="${filme.poster_path}" alt="">
+    </div>
+
+    <div>
+      <h1 class="titulo-filme">${filme.poster_path}</h1>
+      <div class="informacoes-adicionais">
+          <div class="classificao">${filme.popularity}</div>
+          <div class="genero">
+              <p>${filme.genre_ids}</p>
+          </div>
+          <div class="lancamento">${filme.release_date}</div>
+      </div>
+
+      <div class="sinopse">
+          <h3>Sinopse</h3>
+          <p class="descricao">${filme.overview}</p>
+      </div>
+
+    </div>
+
+      
+      `;
+};
+
 //Carrega os filmes na página
 const carregarFilmes = async () => {
-  const container = document.querySelector('.container-filmes');
+  const container = document.querySelector(".container-filmes");
 
   filme = await pesquisarFilmes();
 
@@ -71,15 +107,15 @@ const carregarFilmes = async () => {
 
 function iniciarModal(modalId) {
   const modal = document.getElementById(modalId);
-  modal.classList.add('mostrar');
-  modal.addEventListener('click', (evento) => {
-    if (evento.target.id == modalId || evento.target.className == 'fechar') {
-      modal.classList.remove('mostrar');
+  modal.classList.add("mostrar");
+  modal.addEventListener("click", (evento) => {
+    if (evento.target.id == modalId || evento.target.className == "fechar") {
+      modal.classList.remove("mostrar");
     }
   });
 }
 
-const maisInformacoesBotao = document.querySelector('.botao-informacoes');
+const maisInformacoesBotao = document.querySelector(".botao-informacoes");
 /*const maisInformacoesImagem = document.querySelector('.card-filme');
 
 maisInformacoes.addEventListener('click', () => iniciarModal('modal'));
