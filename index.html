@@ -2,60 +2,89 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style/style.css">
-    <script src="./js/main.js" defer></script>
-    <title>Consumo Api</title>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="./style/destaque.css">
+   <link rel="stylesheet" href="./style/filmes.css">
+   <link rel="stylesheet" href="./style/modal.css">
+   <script src="./js/destaque.js" defer></script>
+   <script src="./js/slideFilmes.js" defer></script>
+   <title>Consumindo api de filme</title>
 </head>
 
 <body>
-    <section id="destaque">
-        <style>
-           #destaque {
-              background-image: url();
-           }
-        </style>
-  
-        <div class="geral">
-           <div container="container-titulo">
-              <h1 class="titulo">Raya e o Último Dragão</h1>
-           </div>
-  
-           <div class="container-informacoes">
-              <p class="descricao">
-                 Muito tempo atrás, humanos e dragões viviam juntos em harmonia no mundo de Kumandra. Mas a ameaça de uma força do mal fez com que os dragões se sacrificassem para salvar a humanidade. Agora, 500 anos depois, o perigo ressurge e a solitária guerreira Raya embarca em uma incrível jornada para encontrar o último dragão e salvar seu mundo.
-              </p>
-  
-              <div class="genero">
-                 <p>Animação</p>
-              </div>
-           </div>
-  
-           <div class="botoes">
-              <div class="botao-trailer">
-                 <a href="#" class="conteudo-botao">Assistir trailer</a>
-              </div>
-              <div class="botao-informacoes">
-                 <a href="#" class="conteudo-botao"> + Mais informações</a>
-              </div>
-           </div>
-  
-        </div>
-     </section>
+   <section id="destaques">
+      <div class="slides-container">
+         <div class="slide teste">
+            <div class="container-informacao">
+               <div class="titulo"></div>
+               <div class="descricao"></div>
+               <div class="genero">
+                  <p></p>
+               </div>
 
-    <section id="filmes">
-        <div class="titulo-secao">Filmes em alta</div>
+               <div class="container-botoes">
+                  <div class="caixa-botao">
+                     <a class="botao" href="#">Assistir trailer</a>
+                  </div>
 
-        <div class="container-filmes">
+                  <div class="caixa-botao">
+                     <a class="botao" href="#">+ informações</a>
+                  </div>
+               </div>
+            </div>
 
-        </div>
-    </section>
+         </div>
+   </section>
 
-    <div id="modal" class="modal-container">
-        
-    </div>
+   <section id="sugestao">
+      <div class="titulo-section">
+         <h2>sugestão</h2>
+      </div>
+
+      <div class="galeria-filmes">
+         <div class="anterior"> ❮ </div>
+         <div class="proximo"> ❯ </div>
+
+         <div class="container__filmes">
+            <div class="container__filme teste"></div>
+         </div>
+      </div>
+   </section>
+
+   <section id="upcoming">
+      <div class="titulo-section">
+         <h2>Próximos lançamentos</h2>
+      </div>
+
+      <div class="galeria-filmes">
+         <div class="anterior"> ❮ </div>
+         <div class="proximo"> ❯ </div>
+
+         <div class="container__filmes">
+            <div class="container__filme teste"></div>
+         </div>
+      </div>
+   </section>
+
+   <section id="lancamentos">
+      <div class="titulo-section">
+         <h2>Lançamentos</h2>
+      </div>
+
+      <div class="galeria-filmes">
+         <div class="anterior"> ❮ </div>
+         <div class="proximo"> ❯ </div>
+
+         <div class="container__filmes">
+            <div class="container__filme teste"></div>
+         </div>
+      </div>
+   </section>
+
+
+   <div id="modal" class="modal-container"></div>
 
 </body>
 

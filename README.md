@@ -8,9 +8,8 @@ Website criado, com fins didáticos, para o curso de desenvolvimento de sistemas
 * JavaScript
 
 ## Api utilizada
-[TMDB] (https://www.themoviedb.org/)
+(https://www.themoviedb.org/)
 
 ## Web site
 O site pode ser acessado pelo link
 
-## Figma
